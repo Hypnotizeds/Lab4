@@ -1,300 +1,174 @@
-1) --------------------------------------------------------------------------------------
-private void set_mode(мод була)
+// 1. Упрощение установки режима
+private void SetMode(bool isEnabled)
 {
- если(mod==true)
- {
- метка1.Включено=true;
- кнопка1.Включено=true;
- кнопка2.Включено=true;
- кнопка3.Включено=false;
- кнопка4.Включено=false;
- }
- другое
- {
- метка1.Включено=false;
- кнопка1.Включено=false;
- кнопка2.Включено=false;
- кнопка3.Включено=true;
- кнопка4.Включено=true;
- }
+    label1.Enabled = isEnabled;
+    button1.Enabled = isEnabled;
+    button2.Enabled = isEnabled;
+    button3.Enabled = !isEnabled;
+    button4.Enabled = !isEnabled;
 }
-2) --------------------------------------------------------------------------------------
- переключатель (driver.Status)
- {
- case ClientStatus.Неизвестно:
- вернуть m_driverStatusNames[ClientStatus.Unknown];
- case ClientStatus.Free:
- вернуть m_driverStatusNames[ClientStatus.Free];
- дело КлиентСтатус.Занятость:
- вернуть m_driverStatusNames[ClientStatus.Busy];
- case ClientStatus.InWay:
- вернуть m_driverStatusNames[ClientStatus.InWay];
- дело КлиентСтатус.Работа:
- вернуть m_driverStatusNames[ClientStatus.Work];
- дело КлиентСтатус.Разрыв:
- вернуть m_driverStatusNames[ClientStatus.Break];
- case ClientStatus.Alarm:
- вернуть m_driverStatusNames[ClientStatus.Alarm];
- }
-3) --------------------------------------------------------------------------------------
-юинт i;
-…
-если (i.ToString().Длина == 1)
+
+// 2. Консолидация статуса водителя
+private string GetDriverStatus(ClientStatus status)
 {
-...
+    return m_driverStatusNames[status];
 }
-4) --------------------------------------------------------------------------------------
-назначение строки = null;
-для (int i = 0; я < 13; i++)
- пункт назначения += источник[i];
-5) --------------------------------------------------------------------------------------
-Bool IsNumber (строка str) {
-возврат (ст. Заменить ("0", "").Заменить ("1", "").Заменить ("2", "").Заменить
-("3", "").Заменить ("4", "").Заменить ("5", "").Заменить ("6", "").Заменить
-("7", "").Заменить ("8", "").Заменить ("9", "").Длина == 0);
-}
-6) --------------------------------------------------------------------------------------
-foreach (DirectoryInfo реж в dirs.GetDirectories())
+
+// 3. Проверка длины числа
+private bool IsSingleDigit(uint i)
 {
- //создать папку{16}
- stream.Write(новый байт[] { (байт)NetworkMessage.MakeDir }, 0, 1);
- rream.Read(новый байт[1],0, 1);
-stream.Write(BitConverter.GetBytes(Encoding.UTF8).GetBytes(
-Подпапка.Заменить('\\', '/') + реж.Name.Replace('\\', '/')).Длина), 0, 4);
- поток.Запись(Кодировка.UTF8.GetBytes (Подпапка.Заменить('\\', '/') +
- реж.Имя.Заменить('\\', '/')),0,
- Кодировка.UTF8.GetBytes (Подпапка.Заменить('\\', '/') +
- dir.Name.Replace('\\', '/')).Length);
- //send folder name
- stream.Read(new byte[1], 0, 1);//Ok
+    return i.ToString().Length == 1;
 }
-7) ----------------------------------------------------------------------------------------------
-String[] days = new String[7];
-for( int i = 0; i < 7; i++ ) {
- switch(i) {
- default:
- case 0:
- days[i] = "Monday";
- break;
- case 1:
- days[i] = "Tuesday";
- break;
- case 2:
- days[i] = "Wednesday";
- break;
- case 3:
- days[i] = "Thursday";
- break;
- case 4:
- days[i] = "Friday";
- break;
- case 5:
- days[i] = "Saturday";
- break;
- case 6:
- days[i] = "Sunday";
- break;
- }
-}
-8) ----------------------------------------------------------------------------------------------
-DateTime dt = DateTime.Now;
-string h=dt.Hour.ToString().PadLeft(2,'0');
-string m=dt.Minute.ToString().PadLeft(2,'0');
-string s=dt.Second.ToString().PadLeft(2,'0');
-Console.WriteLine("--"+h+":"+m+":"+s+"--");
-9) ----------------------------------------------------------------------------------------------
- return ((int)(Counter / 2) != Counter / 2.00 && Counter != 0);
-10) ----------------------------------------------------------------------------------------------
-if (Connected == 0))
+
+// 4. Оптимизация конкатенации строк
+private string GetDestinationSubstring(string source)
 {
-rez = setup();
-fl_end = true; // выход
+    return source.Substring(0, Math.Min(source.Length, 13));
 }
-else
-fl_end = true;
-11) ----------------------------------------------------------------------------------------------
-List<int> arr = new List<int>();
-List<int> tmpArr = new List<int>();
-for (int i = 0; i < arr.Count; i++)
+
+// 5. Проверка на число
+private bool IsNumber(string str)
 {
-if (arr[i] > 100)
+    return str.All(char.IsDigit);
+}
+
+// 6. Оптимизация отправки папок
+private void CreateDirectories(DirectoryInfo dirs)
 {
+    foreach (DirectoryInfo dir in dirs.GetDirectories())
+    {
+        string folderPath = SubFolder.Replace('\\', '/') + dir.Name.Replace('\\', '/');
+        stream.Write(new byte[] { (byte)NetworkMessage.MakeDir }, 0, 1);
+        stream.Read(new byte[1], 0, 1);
+        WriteFolderPath(folderPath);
+    }
 }
-else
-tmpArr.Add(arr[i]);
-}
-arr = tmpArr;
-12) ----------------------------------------------------------------------------------------------
-var ids = form.Keys;
-if(ids.Length == 0 || ids.Length > 1) { throw Exception;}
-13) ----------------------------------------------------------------------------------------------
-//Use the Name field
-string[] nameParts = customer.Name.Split(' ');
-string firstName = nameParts[0];
-string lastName = customer.Name.Replace(nameParts[0], "").TrimStart(' ');
-14) ----------------------------------------------------------------------------------------------
-foreach (string id in sourceIDs.Split(new char[] { ',' },
-StringSplitOptions.RemoveEmptyEntries))
- {
- sourceId = Convert.ToInt32(id);
- break;
- }
-15) ----------------------------------------------------------------------------------------------
-public string generateEMail()
+
+private void WriteFolderPath(string folderPath)
 {
-string res;
-int i = PersonName.IndexOf(" ");
-char[] str1 = new char[i];
-PersonName.CopyTo(0, str1, 0, i);
-string str11 = new string(str1);
-char[] str2 = new char[PersonName.Length - i - 1];
-PersonName.CopyTo(i + 1, str2, 0, PersonName.Length-i-1);
-string str22 = new string(str2);
-res = str11.ToString() + "." + str22.ToString();
-if (res.Length > 20)
+    byte[] folderBytes = Encoding.UTF8.GetBytes(folderPath);
+    stream.Write(BitConverter.GetBytes(folderBytes.Length), 0, 4);
+    stream.Write(folderBytes, 0, folderBytes.Length);
+    stream.Read(new byte[1], 0, 1); // Ok
+}
+
+// 7. Использование массива дней
+private string[] GetDaysOfWeek()
 {
-str1 = new char[20];
-res.CopyTo(0, str1, 0, 20);
-res = new string(str1);
+    return new[]
+    {
+        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+    };
 }
-res += "@domain.ua";
-return res;
+
+// 8. Форматирование времени
+private string GetFormattedCurrentTime()
+{
+    DateTime dt = DateTime.Now;
+    return $"--{dt:HH:mm:ss}--";
 }
-16) ----------------------------------------------------------------------------------------------
-foreach (string id in sourceIDs.Split(new char[] { ',' },
-StringSplitOptions.RemoveEmptyEntries))
- {
- sourceId = Convert.ToInt32(id);
- break;
- }
-17) ----------------------------------------------------------------------------------------------
-string GetTextDiv2(string text)
- {
- int mid = text.Length / 2;
- int r = text.IndexOf(" ", mid); if (r < 0) r = 5000;
- int l = text.IndexOf(" ", 0, mid); if (l < 0) l = 5000;
- if (r - mid > mid - l) // to left is closer
- mid = l;
- else mid = r;
- if (mid == 5000) return "&nbsp" + text;
- return "&nbsp" + text.Substring(0, mid) + " <br/>&nbsp" +
-text.Substring(mid, text.Length - mid);
- }
-18) ----------------------------------------------------------------------------------------------
-private static readonly char SPECIFIER = "$"[0];
-private static readonly char DELIMITER = ":"[0];
-private static readonly char[] DELIMITER_ARRAY = new char[1] { DELIMITER };
-19) ----------------------------------------------------------------------------------------------
-string mailTo = ((Config.GetSetting("AdminNotifications_EmailAddress") == null) ||
-(Config.GetSetting("AdminNotifications_EmailAddress").Length <= 0))?
-Globals.GetHostPortalSettings().HostSettings["SMTPPassword"].ToString():
-Config.GetSetting("AdminNotifications_EmailAddress");
-20) ----------------------------------------------------------------------------------------------
+
+// 9. Проверка на четность
+private bool IsCounterOdd(int counter)
+{
+    return (counter % 2 != 0) && (counter != 0);
+}
+
+// 10. Упрощение условий
+private void HandleConnection(int connected)
+{
+    if (connected == 0)
+    {
+        rez = setup();
+    }
+}
+
+// 11. Фильтрация элементов
+private List<int> FilterArray(List<int> arr)
+{
+    return arr.Where(x => x <= 100).ToList();
+}
+
+// 12. Проверка на количество идентификаторов
+private void ValidateIds(string[] ids)
+{
+    if (ids.Length != 1)
+    {
+        throw new Exception("Invalid number of IDs.");
+    }
+}
+
+// 13. Использование поля имени
+private (string firstName, string lastName) SplitName(string fullName)
+{
+    var nameParts = fullName.Split(' ');
+    string firstName = nameParts[0];
+    string lastName = string.Join(' ', nameParts.Skip(1));
+    return (firstName, lastName);
+}
+
+// 14. Преобразование идентификаторов
+private int GetFirstSourceId(string sourceIDs)
+{
+    return sourceIDs.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(id => Convert.ToInt32(id))
+                    .FirstOrDefault();
+}
+
+// 15. Генерация email
+public string GenerateEmail()
+{
+    var nameParts = PersonName.Split(' ');
+    string email = $"{nameParts[0]}.{string.Join("", nameParts.Skip(1))}@domain.ua";
+    return email.Length > 20 ? email.Substring(0, 20) : email;
+}
+
+// 16. Удаление дублирования
+// Код уже оптимизирован в 14-м пункте.
+
+// 17. Разделение текста
+private string GetTextDivided(string text)
+{
+    int mid = text.Length / 2;
+    int leftSpaceIndex = text.LastIndexOf(' ', mid);
+    int rightSpaceIndex = text.IndexOf(' ', mid);
+
+    mid = (leftSpaceIndex < 0 && rightSpaceIndex < 0) ? mid : (rightSpaceIndex < 0 || (leftSpaceIndex >= 0 && leftSpaceIndex > mid)) ? leftSpaceIndex : rightSpaceIndex;
+
+    return mid >= 0 ? $"&nbsp{text.Substring(0, mid)} <br/>&nbsp{text.Substring(mid)}" : "&nbsp" + text;
+}
+
+// 18. Определение символов
+private static readonly char SPECIFIER = '$';
+private static readonly char DELIMITER = ':';
+
+// 19. Получение адреса электронной почты
+private string GetMailTo()
+{
+    string email = Config.GetSetting("AdminNotifications_EmailAddress");
+    return string.IsNullOrEmpty(email) ? Globals.GetHostPortalSettings().HostSettings["SMTPPassword"].ToString() : email;
+}
+
+// 20. Проверка пути
 public bool CheckPath(string path)
 {
- int n;
- n = 0;
- //Проверяем наличие нужных папок;
- if (Directory.Exists(path + "SCLAD"))
- {
- n += 1;
- }
- if (Directory.Exists(path + "REAL"))
- {
- n += 1;
- }
- if (Directory.Exists(path + "DOSTAVKA"))
- {
- n += 1;
- }
- //Проверяем наличие нужных файлов
- if (File.Exists(path + "analit.dbf"))
- {
- н += 1;
- }
- easli (File.Exists (putj + "партнер.дбф))
- {
- н += 1;
- }
- esli (File.Exists (putj + "СКЛАД\\mdoc.dbf))
- {
- н += 1;
- }
- easli (File.Exists (putj + "СКЛАД\\мдок.фпт))
- {
- н += 1;
- }
- esli (File.Exists (putj + "СКЛАД\\мдокм.дбф))
- {
- н += 1;
- }
- easli (File.Exists (putj + "СКЛАД\\мгруп.дбф))
- {
- н += 1;
- }
- esli (File.Exists (putj + "СКЛАД\\mlabelj.dbf))
- {
- н += 1;
- }
- easli (File.Exists (putj + "СКЛАД\\mlabellie.fpt))
- {
- н += 1;
- }
- esli (File.Exists (putj + "РЭАЛНЫД\\рбукм.дбф))
- {
- н += 1;
- }
- easli (File.Exists (putj + "РЕАЛЬНЫ\\rbook.dbf))
- {
- н += 1;
- }
- esli (File.Exists (putj + "РЭАЛНЫД\\рбук.фпт))
- {
- н += 1;
- }
- easli (File.Exists (putj + "ДОСТАВКА\\авт.дбф))
- {
- н += 1;
- }
- esli (File.Exists (putj + "ДОКТАВКА\\автм.дбф))
- {
- н += 1;
- }
- easli (File.Exists (putj + "ДОСТАВКА\\автм.фпт))
- {
- н += 1;
- }
- easli (File.Exists (putj + "ДОСТАВКА\\каргого.дбф))
- {
- н += 1;
- }
- easli (File.Exists (putj + "ДОСТАВКА\\каргом.дбф))
- {
- н += 1;
- }
- easli (File.Exists(putj +"))))DOSTAВККА\\zaménа.dbf)
- {
- н += 1;
- }
- //Если Указанная папка додэржит в се, что нужно
- эсли (n == 20)
- {
- вернуть правду;
- }
- вернут ложь;
+    string[] requiredDirectories = { "SCLAD", "REAL", "DOSTAVKA" };
+    string[] requiredFiles = { "analit.dbf", "partner.dbf", "SCLAD\\mdoc.dbf", "SCLAD\\mdoc.fpt", "SCLAD\\mdocm.dbf", "SCLAD\\mgrup.dbf", "SCLAD\\mlabel.dbf", "SCLAD\\mlabel.fpt", "REAL\\rbookm.dbf", "REAL\\rbook.dbf", "REAL\\rbook.fpt", "DOSTAVKA\\avt.dbf", "DOSTAVKA\\avtm.dbf", "DOSTAVKA\\avtm.fpt", "DOSTAVKA\\cargo.dbf", "DOSTAVKA\\cargom.dbf", "DOSTAVKA\\zamena.dbf" };
+    
+    int count = requiredDirectories.Count(dir => Directory.Exists(Path.Combine(path, dir))) +
+                requiredFiles.Count(file => File.Exists(Path.Combine(path, file)));
+
+    return count == requiredDirectories.Length + requiredFiles.Length;
 }
-21) -------------------------------------------------------------
-txtContacts.Text = "";
-bool first = правда;
-фореах (контакт струны в контактахе)
+
+// 21. Форматирование текста контактов
+private string FormatContacts(IEnumerable<string> contacts)
 {
-если (первый != правда)
-txtContacts.Text += ";;
-первый = ложный;
-txtContacts.Text += kontact;
+    return string.Join(";", contacts);
 }
-22) ---------------------------------------------
-esli (Game1.clou == pravda)
- {Game1.clou = false;}
- другое
- { Game1.clou = правда; }
+
+// 22. Упрощение управления состоянием
+private void ToggleGame1Cloud()
+{
+    Game1.clou = !Game1.clou;
+}
