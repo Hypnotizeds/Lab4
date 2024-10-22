@@ -1,0 +1,300 @@
+1) --------------------------------------------------------------------------------------
+private void set_mode(мод була)
+{
+ если(mod==true)
+ {
+ метка1.Включено=true;
+ кнопка1.Включено=true;
+ кнопка2.Включено=true;
+ кнопка3.Включено=false;
+ кнопка4.Включено=false;
+ }
+ другое
+ {
+ метка1.Включено=false;
+ кнопка1.Включено=false;
+ кнопка2.Включено=false;
+ кнопка3.Включено=true;
+ кнопка4.Включено=true;
+ }
+}
+2) --------------------------------------------------------------------------------------
+ переключатель (driver.Status)
+ {
+ case ClientStatus.Неизвестно:
+ вернуть m_driverStatusNames[ClientStatus.Unknown];
+ case ClientStatus.Free:
+ вернуть m_driverStatusNames[ClientStatus.Free];
+ дело КлиентСтатус.Занятость:
+ вернуть m_driverStatusNames[ClientStatus.Busy];
+ case ClientStatus.InWay:
+ вернуть m_driverStatusNames[ClientStatus.InWay];
+ дело КлиентСтатус.Работа:
+ вернуть m_driverStatusNames[ClientStatus.Work];
+ дело КлиентСтатус.Разрыв:
+ вернуть m_driverStatusNames[ClientStatus.Break];
+ case ClientStatus.Alarm:
+ вернуть m_driverStatusNames[ClientStatus.Alarm];
+ }
+3) --------------------------------------------------------------------------------------
+юинт i;
+…
+если (i.ToString().Длина == 1)
+{
+...
+}
+4) --------------------------------------------------------------------------------------
+назначение строки = null;
+для (int i = 0; я < 13; i++)
+ пункт назначения += источник[i];
+5) --------------------------------------------------------------------------------------
+Bool IsNumber (строка str) {
+возврат (ст. Заменить ("0", "").Заменить ("1", "").Заменить ("2", "").Заменить
+("3", "").Заменить ("4", "").Заменить ("5", "").Заменить ("6", "").Заменить
+("7", "").Заменить ("8", "").Заменить ("9", "").Длина == 0);
+}
+6) --------------------------------------------------------------------------------------
+foreach (DirectoryInfo реж в dirs.GetDirectories())
+{
+ //создать папку{16}
+ stream.Write(новый байт[] { (байт)NetworkMessage.MakeDir }, 0, 1);
+ rream.Read(новый байт[1],0, 1);
+stream.Write(BitConverter.GetBytes(Encoding.UTF8).GetBytes(
+Подпапка.Заменить('\\', '/') + реж.Name.Replace('\\', '/')).Длина), 0, 4);
+ поток.Запись(Кодировка.UTF8.GetBytes (Подпапка.Заменить('\\', '/') +
+ реж.Имя.Заменить('\\', '/')),0,
+ Кодировка.UTF8.GetBytes (Подпапка.Заменить('\\', '/') +
+ dir.Name.Replace('\\', '/')).Length);
+ //send folder name
+ stream.Read(new byte[1], 0, 1);//Ok
+}
+7) ----------------------------------------------------------------------------------------------
+String[] days = new String[7];
+for( int i = 0; i < 7; i++ ) {
+ switch(i) {
+ default:
+ case 0:
+ days[i] = "Monday";
+ break;
+ case 1:
+ days[i] = "Tuesday";
+ break;
+ case 2:
+ days[i] = "Wednesday";
+ break;
+ case 3:
+ days[i] = "Thursday";
+ break;
+ case 4:
+ days[i] = "Friday";
+ break;
+ case 5:
+ days[i] = "Saturday";
+ break;
+ case 6:
+ days[i] = "Sunday";
+ break;
+ }
+}
+8) ----------------------------------------------------------------------------------------------
+DateTime dt = DateTime.Now;
+string h=dt.Hour.ToString().PadLeft(2,'0');
+string m=dt.Minute.ToString().PadLeft(2,'0');
+string s=dt.Second.ToString().PadLeft(2,'0');
+Console.WriteLine("--"+h+":"+m+":"+s+"--");
+9) ----------------------------------------------------------------------------------------------
+ return ((int)(Counter / 2) != Counter / 2.00 && Counter != 0);
+10) ----------------------------------------------------------------------------------------------
+if (Connected == 0))
+{
+rez = setup();
+fl_end = true; // выход
+}
+else
+fl_end = true;
+11) ----------------------------------------------------------------------------------------------
+List<int> arr = new List<int>();
+List<int> tmpArr = new List<int>();
+for (int i = 0; i < arr.Count; i++)
+{
+if (arr[i] > 100)
+{
+}
+else
+tmpArr.Add(arr[i]);
+}
+arr = tmpArr;
+12) ----------------------------------------------------------------------------------------------
+var ids = form.Keys;
+if(ids.Length == 0 || ids.Length > 1) { throw Exception;}
+13) ----------------------------------------------------------------------------------------------
+//Use the Name field
+string[] nameParts = customer.Name.Split(' ');
+string firstName = nameParts[0];
+string lastName = customer.Name.Replace(nameParts[0], "").TrimStart(' ');
+14) ----------------------------------------------------------------------------------------------
+foreach (string id in sourceIDs.Split(new char[] { ',' },
+StringSplitOptions.RemoveEmptyEntries))
+ {
+ sourceId = Convert.ToInt32(id);
+ break;
+ }
+15) ----------------------------------------------------------------------------------------------
+public string generateEMail()
+{
+string res;
+int i = PersonName.IndexOf(" ");
+char[] str1 = new char[i];
+PersonName.CopyTo(0, str1, 0, i);
+string str11 = new string(str1);
+char[] str2 = new char[PersonName.Length - i - 1];
+PersonName.CopyTo(i + 1, str2, 0, PersonName.Length-i-1);
+string str22 = new string(str2);
+res = str11.ToString() + "." + str22.ToString();
+if (res.Length > 20)
+{
+str1 = new char[20];
+res.CopyTo(0, str1, 0, 20);
+res = new string(str1);
+}
+res += "@domain.ua";
+return res;
+}
+16) ----------------------------------------------------------------------------------------------
+foreach (string id in sourceIDs.Split(new char[] { ',' },
+StringSplitOptions.RemoveEmptyEntries))
+ {
+ sourceId = Convert.ToInt32(id);
+ break;
+ }
+17) ----------------------------------------------------------------------------------------------
+string GetTextDiv2(string text)
+ {
+ int mid = text.Length / 2;
+ int r = text.IndexOf(" ", mid); if (r < 0) r = 5000;
+ int l = text.IndexOf(" ", 0, mid); if (l < 0) l = 5000;
+ if (r - mid > mid - l) // to left is closer
+ mid = l;
+ else mid = r;
+ if (mid == 5000) return "&nbsp" + text;
+ return "&nbsp" + text.Substring(0, mid) + " <br/>&nbsp" +
+text.Substring(mid, text.Length - mid);
+ }
+18) ----------------------------------------------------------------------------------------------
+private static readonly char SPECIFIER = "$"[0];
+private static readonly char DELIMITER = ":"[0];
+private static readonly char[] DELIMITER_ARRAY = new char[1] { DELIMITER };
+19) ----------------------------------------------------------------------------------------------
+string mailTo = ((Config.GetSetting("AdminNotifications_EmailAddress") == null) ||
+(Config.GetSetting("AdminNotifications_EmailAddress").Length <= 0))?
+Globals.GetHostPortalSettings().HostSettings["SMTPPassword"].ToString():
+Config.GetSetting("AdminNotifications_EmailAddress");
+20) ----------------------------------------------------------------------------------------------
+public bool CheckPath(string path)
+{
+ int n;
+ n = 0;
+ //Проверяем наличие нужных папок;
+ if (Directory.Exists(path + "SCLAD"))
+ {
+ n += 1;
+ }
+ if (Directory.Exists(path + "REAL"))
+ {
+ n += 1;
+ }
+ if (Directory.Exists(path + "DOSTAVKA"))
+ {
+ n += 1;
+ }
+ //Проверяем наличие нужных файлов
+ if (File.Exists(path + "analit.dbf"))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "партнер.дбф))
+ {
+ н += 1;
+ }
+ esli (File.Exists (putj + "СКЛАД\\mdoc.dbf))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "СКЛАД\\мдок.фпт))
+ {
+ н += 1;
+ }
+ esli (File.Exists (putj + "СКЛАД\\мдокм.дбф))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "СКЛАД\\мгруп.дбф))
+ {
+ н += 1;
+ }
+ esli (File.Exists (putj + "СКЛАД\\mlabelj.dbf))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "СКЛАД\\mlabellie.fpt))
+ {
+ н += 1;
+ }
+ esli (File.Exists (putj + "РЭАЛНЫД\\рбукм.дбф))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "РЕАЛЬНЫ\\rbook.dbf))
+ {
+ н += 1;
+ }
+ esli (File.Exists (putj + "РЭАЛНЫД\\рбук.фпт))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "ДОСТАВКА\\авт.дбф))
+ {
+ н += 1;
+ }
+ esli (File.Exists (putj + "ДОКТАВКА\\автм.дбф))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "ДОСТАВКА\\автм.фпт))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "ДОСТАВКА\\каргого.дбф))
+ {
+ н += 1;
+ }
+ easli (File.Exists (putj + "ДОСТАВКА\\каргом.дбф))
+ {
+ н += 1;
+ }
+ easli (File.Exists(putj +"))))DOSTAВККА\\zaménа.dbf)
+ {
+ н += 1;
+ }
+ //Если Указанная папка додэржит в се, что нужно
+ эсли (n == 20)
+ {
+ вернуть правду;
+ }
+ вернут ложь;
+}
+21) -------------------------------------------------------------
+txtContacts.Text = "";
+bool first = правда;
+фореах (контакт струны в контактахе)
+{
+если (первый != правда)
+txtContacts.Text += ";;
+первый = ложный;
+txtContacts.Text += kontact;
+}
+22) ---------------------------------------------
+esli (Game1.clou == pravda)
+ {Game1.clou = false;}
+ другое
+ { Game1.clou = правда; }
