@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Калифорния — SushiGo</title>
+  <meta name="description" content="SushiGo — доставка суши и роллов. Адаптивный PWA-сайт.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#e11d48">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="header" role="banner">
+  <div class="container header__row">
+    <a class="brand" href="index.html"><img class="brand__logo" src="assets/img/icon-192.png" alt="Логотип SushiGo"><span>SushiGo</span></a>
+    <div class="burger"><button id="burgerBtn" aria-controls="navList" aria-expanded="false">☰ Меню</button></div>
+    <nav class="nav" role="navigation"><ul id="navList" class="nav__list"><li><a class="nav__link" href="index.html">Главная</a></li>
+<li><a class="nav__link nav__link--active" href="products.html">Товары</a></li>
+<li><a class="nav__link" href="cart.html">Корзина <span id='cartCounter'></span></a></li>
+<li><a class="nav__link" href="checkout.html">Оформление</a></li>
+<li><a class="nav__link" href="contacts.html">Контакты</a></li>
+<li><a class="nav__link" href="team.html">Наша команда</a></li>
+<li><a class="nav__link" href="request.html">Заявка</a></li></ul></nav>
+  </div>
+</header>
+<main role="main"><div class="container">
+<article class="mt-3">
+  <h1>Калифорния</h1>
+  <img class="mt-2" src="assets/img/california.jpg" width="1280" height="720" alt="Калифорния">
+  <p class="mt-2">Краб, авокадо, огурец, икра масаго. 8 шт.</p>
+  <p class="card__price">399 ₽</p>
+  <div class="card__actions">
+    <button class="btn btn--brand" data-add data-id="california" data-name="Калифорния" data-price="399" data-img="assets/img/california.jpg">В корзину</button>
+    <a class="btn btn--ghost" href="products.html">Назад к списку</a>
+  </div>
+</article></div></main>
+<footer role="contentinfo"><div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;">
+  <small>© 2025 SushiGo. Все права защищены.</small><span class="badge">PWA · Offline · Installable</span></div></footer>
+<button id="btnInstall" class="btn btn--brand install">Установить приложение</button>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Заявка — SushiGo</title>
+  <meta name="description" content="SushiGo — доставка суши и роллов. Адаптивный PWA-сайт.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#e11d48">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/img/icon-192.png">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<header class="header" role="banner">
+  <div class="container header__row">
+    <a class="brand" href="index.html"><img class="brand__logo" src="assets/img/icon-192.png" alt="Логотип SushiGo"><span>SushiGo</span></a>
+    <div class="burger"><button id="burgerBtn" aria-controls="navList" aria-expanded="false">☰ Меню</button></div>
+    <nav class="nav" role="navigation"><ul id="navList" class="nav__list"><li><a class="nav__link" href="index.html">Главная</a></li>
+<li><a class="nav__link" href="products.html">Товары</a></li>
+<li><a class="nav__link" href="cart.html">Корзина <span id='cartCounter'></span></a></li>
+<li><a class="nav__link" href="checkout.html">Оформление</a></li>
+<li><a class="nav__link" href="contacts.html">Контакты</a></li>
+<li><a class="nav__link" href="team.html">Наша команда</a></li>
+<li><a class="nav__link nav__link--active" href="request.html">Заявка</a></li></ul></nav>
+  </div>
+</header>
+<main role="main"><div class="container">
+<section class="mt-3">
+  <h1>Оформление заявки</h1>
+  <button class="btn btn--ghost mt-2" type="button" onclick="document.getElementById('near').classList.add('sheet--open')">Показать заявки поблизости</button>
+  <form class="form mt-3" onsubmit="return false">
+    <select class="input" required>
+      <option value="" disabled selected>Категория…</option>
+      <option>Качество доставки</option><option>Оплата</option><option>Другое</option>
+    </select>
+    <input class="input" type="text" placeholder="ФИО" required>
+    <input class="input" type="tel" placeholder="Телефон" pattern="[0-9+ ()-]{6,}" required>
+    <input class="input" type="email" placeholder="Email" required>
+    <textarea class="input" rows="4" placeholder="Описание"></textarea>
+    <button class="btn btn--brand">Отправить</button>
+  </form>
+</section>
+<div id="near" class="sheet" role="dialog" aria-modal="true">
+  <div class="sheet__panel">
+    <div class="sheet__head">
+      <strong>Заявки поблизости</strong>
+      <button class="sheet__close" onclick="document.getElementById('near').classList.remove('sheet--open')">✕</button>
+    </div>
+    <div style="padding:12px;display:grid;gap:12px">
+      <article class="list-card"><div class="list-card__meta"><span>• 120 м</span><span>Сегодня</span></div><h3>Просроченная доставка</h3><p class="card__text">Курьер опоздал на 40 мин.</p></article>
+      <article class="list-card"><div class="list-card__meta"><span>• 320 м</span><span>Вчера</span></div><h3>Проблема с оплатой</h3><p class="card__text">Двойное списание.</p></article>
+    </div>
+  </div>
+</div>
+</div></main>
+<footer role="contentinfo"><div class="container" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;">
+  <small>© 2025 SushiGo. Все права защищены.</small><span class="badge">PWA · Offline · Installable</span></div></footer>
+<button id="btnInstall" class="btn btn--brand install">Установить приложение</button>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/cart.js"></script>
+</body>
+</html>
